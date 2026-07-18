@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trần Tiến Sĩ - Mathematics Educator</title>
+    <!-- STREAMING_CHUNK:Loading fonts and Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* STREAMING_CHUNK:Defining custom CSS for animations and scrollbar */
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #0ea5e9;
+            border: 4px solid #e0f2fe;
+            box-shadow: 0 0 0 4px #fff;
+        }
+
+        .tab-btn.active {
+            background-color: #0369a1;
+            color: white;
+            border-color: #0369a1;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Glassmorphism effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- STREAMING_CHUNK:Building the Navigation Bar -->
+    <nav class="fixed w-full z-50 glass shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 font-serif font-bold text-xl text-brand-900 tracking-tight">
+                    T.T. Sĩ
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-gray-600 hover:text-brand-700 transition font-medium text-sm">Giới thiệu</a>
+                    <a href="#education" class="text-gray-600 hover:text-brand-700 transition font-medium text-sm">Học vấn</a>
+                    <a href="#experience" class="text-gray-600 hover:text-brand-700 transition font-medium text-sm">Kinh nghiệm</a>
+                    <a href="#portfolio" class="text-brand-700 font-semibold hover:text-brand-900 transition text-sm">Minh chứng Giảng dạy</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-900 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <a href="#about" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Giới thiệu</a>
+            <a href="#education" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Học vấn</a>
+            <a href="#experience" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Kinh nghiệm</a>
+            <a href="#portfolio" class="block px-4 py-3 text-sm text-brand-700 font-semibold hover:bg-gray-50">Minh chứng Giảng dạy</a>
+        </div>
+    </nav>
+
+    <!-- STREAMING_CHUNK:Constructing the Hero Section -->
+    <section id="about" class="pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden relative">
+        <div class="absolute inset-0 z-0">
+            <!-- Decorative background elements -->
+            <div class="absolute top-20 left-10 w-64 h-64 bg-brand-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse-slow"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse-slow" style="animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto reveal">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand-50 text-brand-700 text-sm font-semibold mb-4 border border-brand-100">
+                    Bilingual Mathematics Educator
+                </span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-gray-900 leading-tight mb-6">
+                    Xin chào, tôi là <span class="text-brand-700">Trần Tiến Sĩ</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                    Cử nhân Sư phạm Toán học (Chương trình Tiếng Anh). Tôi đam mê việc truyền đạt tư duy logic toán học và tạo ra môi trường học tập song ngữ hội nhập, sáng tạo.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#portfolio" class="px-8 py-3 bg-brand-700 text-white font-medium rounded-lg shadow-lg hover:bg-brand-900 transition duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-chalkboard-teacher"></i> Xem Hồ Sơ Giảng Dạy
+                    </a>
+                    <a href="#contact" class="px-8 py-3 bg-white text-brand-700 border border-brand-200 font-medium rounded-lg shadow-sm hover:bg-brand-50 transition duration-300 flex items-center justify-center gap-2">
+                        <i class="far fa-address-card"></i> Liên hệ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Building the Education Timeline Section -->
+    <section id="education" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl font-serif font-bold text-gray-900">Hành trình Học vấn</h2>
+                <div class="w-16 h-1 bg-brand-500 mx-auto mt-4 rounded"></div>
+            </div>
+
+            <div class="relative border-l-2 border-brand-100 ml-4 md:ml-0 md:pl-8 space-y-12">
+                
+                <!-- Education Item 1 -->
+                <div class="relative timeline-dot reveal">
+                    <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Trường Đại học Sư phạm TP. Hồ Chí Minh</h3>
+                                <p class="text-brand-700 font-medium">Cử nhân Sư phạm Toán học (Chương trình Tiếng Anh)</p>
+                            </div>
+                            <span class="inline-block px-3 py-1 bg-gray-100 text-gray-600 text-sm font-medium rounded-full mt-2 md:mt-0 whitespace-nowrap">
+                                2022 – 2026
+                            </span>
+                        </div>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-award text-amber-500 mt-1 mr-3"></i>
+                                <span>Xếp loại Tốt nghiệp: <strong>Xuất sắc</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-chart-line text-brand-500 mt-1 mr-3"></i>
+                                <span>Điểm tốt nghiệp: <strong>3.79/4.0</strong> (Tương đương 8.94/10)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-language text-brand-500 mt-1 mr-3"></i>
+                                <span>Ngoại ngữ: <strong>IELTS 6.5</strong></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Education Item 2 -->
+                <div class="relative timeline-dot reveal">
+                    <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Trường THPT Võ Văn Kiệt, Bạc Liêu</h3>
+                                <p class="text-brand-700 font-medium">Học sinh Chuyên Toán</p>
+                            </div>
+                            <span class="inline-block px-3 py-1 bg-gray-100 text-gray-600 text-sm font-medium rounded-full mt-2 md:mt-0 whitespace-nowrap">
+                                2019 – 2022
+                            </span>
+                        </div>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-amber-500 mt-1 mr-3"></i>
+                                <span><strong>Thủ khoa</strong> tổng điểm 4 bài thi (Toán, Văn, Anh, KHTN) tỉnh Bạc Liêu năm 2022.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-brand-500 mt-1 mr-3"></i>
+                                <span>Kết quả thi TN THPT: <strong>Toán 9.6, Tiếng Anh 9.6</strong>.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-medal text-brand-500 mt-1 mr-3"></i>
+                                <span>Điểm TB Toán 3 năm: 9.9 - 9.5 - 9.7. Giải Nhì HSG môn Toán cấp tỉnh (Lớp 10-11).</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Constructing the Experience Section -->
+    <section id="experience" class="py-20 bg-slate-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl font-serif font-bold text-gray-900">Kinh nghiệm Công việc</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Trải nghiệm thực tế giảng dạy tại các môi trường giáo dục công lập và quốc tế, cọ xát với nhiều đối tượng học sinh khác nhau.</p>
+                <div class="w-16 h-1 bg-brand-500 mx-auto mt-4 rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Experience 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 reveal hover:-translate-y-1 transition duration-300">
+                    <div class="w-12 h-12 bg-blue-100 text-brand-700 rounded-lg flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-brand-700 tracking-wider uppercase">Thực tập 1</span>
+                    <h3 class="text-xl font-bold text-gray-900 mt-1 mb-2">Trường THPT Marie Curie, TP. HCM</h3>
+                    <p class="text-sm text-gray-500 mb-4"><i class="far fa-calendar-alt mr-2"></i> 17/11/2025 - 20/12/2025</p>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Thực tập chủ nhiệm và giảng dạy môn Toán lớp 10. Xây dựng kế hoạch bài dạy, tham gia các công tác chuyên môn của giáo viên trường công lập (ra đề thi, hội họp, thi đua).
+                    </p>
+                    <div class="bg-brand-50 p-4 rounded-lg border border-brand-100">
+                        <p class="text-brand-900 font-medium text-sm">
+                            <i class="fas fa-trophy text-amber-500 mr-2"></i>Kết quả: <strong>Đạt 10.0</strong> - Nhận Giấy khen của Hiệu Trưởng.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 reveal hover:-translate-y-1 transition duration-300" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-700 rounded-lg flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-indigo-700 tracking-wider uppercase">Thực tập 2</span>
+                    <h3 class="text-xl font-bold text-gray-900 mt-1 mb-2">Hệ thống trường Pennschool, TP. HCM</h3>
+                    <p class="text-sm text-gray-500 mb-4"><i class="far fa-calendar-alt mr-2"></i> 17/11/2025 - 20/12/2025</p>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Thực tập chủ nhiệm và giảng dạy môn Toán các lớp 8, 9 và 10. Làm quen và thích nghi với môi trường làm việc nề nếp, kỷ luật tiêu chuẩn quốc tế.
+                    </p>
+                    <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                        <p class="text-indigo-900 font-medium text-sm">
+                            <i class="fas fa-star text-amber-500 mr-2"></i>Kết quả: <strong>Đạt 10.0</strong> - Được giáo viên hướng dẫn đánh giá cao.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Building the Interactive Teaching Portfolio Section -->
+    <section id="portfolio" class="py-24 bg-white relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 reveal">
+                <span class="text-brand-700 font-semibold tracking-wider uppercase text-sm">Năng lực cốt lõi</span>
+                <h2 class="text-3xl font-serif font-bold text-gray-900 mt-2">Hồ Sơ Giảng Dạy & Demo</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Tuyển tập các Kế hoạch bài dạy chi tiết minh chứng cho năng lực sư phạm, đặc biệt là khả năng truyền đạt kiến thức Toán học bằng Tiếng Anh.</p>
+                <div class="w-16 h-1 bg-brand-500 mx-auto mt-4 rounded"></div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8 reveal">
+                <!-- Sidebar Tabs -->
+                <div class="w-full lg:w-1/3 flex flex-col gap-2">
+                    <button onclick="switchTab('plan-english')" id="btn-plan-english" class="tab-btn active text-left px-5 py-4 rounded-xl border border-gray-200 transition-all shadow-sm hover:border-brand-500 relative overflow-hidden group">
+                        <div class="absolute right-0 top-0 text-xs bg-amber-500 text-white px-2 py-1 rounded-bl-lg font-medium">Nổi bật</div>
+                        <h4 class="font-bold text-lg mb-1">Quadratic Functions</h4>
+                        <p class="text-sm opacity-80"><i class="fas fa-language mr-1"></i> Dạy Toán bằng Tiếng Anh</p>
+                    </button>
+                    
+                    <button onclick="switchTab('plan-math1')" id="btn-plan-math1" class="tab-btn text-left px-5 py-4 rounded-xl border border-gray-200 bg-white text-gray-700 transition-all hover:border-brand-300">
+                        <h4 class="font-bold text-lg mb-1">Hàm số bậc hai</h4>
+                        <p class="text-sm text-gray-500"><i class="fas fa-school mr-1"></i> THPT Marie Curie</p>
+                    </button>
+
+                    <button onclick="switchTab('plan-math2')" id="btn-plan-math2" class="tab-btn text-left px-5 py-4 rounded-xl border border-gray-200 bg-white text-gray-700 transition-all hover:border-brand-300">
+                        <h4 class="font-bold text-lg mb-1">Xác suất của biến cố</h4>
+                        <p class="text-sm text-gray-500"><i class="fas fa-school mr-1"></i> TH-THCS PennSchool</p>
+                    </button>
+                    
+                    <button onclick="switchTab('plan-math3')" id="btn-plan-math3" class="tab-btn text-left px-5 py-4 rounded-xl border border-gray-200 bg-white text-gray-700 transition-all hover:border-brand-300">
+                        <h4 class="font-bold text-lg mb-1">Hoán vị, Chỉnh hợp, Tổ hợp</h4>
+                        <p class="text-sm text-gray-500"><i class="fas fa-school mr-1"></i> TH-THCS PennSchool</p>
+                    </button>
+                </div>
+
+                <!-- Content Area -->
+                <div class="w-full lg:w-2/3 bg-slate-50 rounded-2xl border border-gray-200 p-6 md:p-8 min-h-[500px]">
+                    
+                    <!-- Content 1: English Math (Highlighted) -->
+                    <div id="plan-english" class="tab-content block animate-fade-in-up">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="bg-brand-100 text-brand-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide border border-brand-200">English Program</span>
+                            <span class="text-gray-500 text-sm"><i class="far fa-clock mr-1"></i> 60 mins</span>
+                            <span class="text-gray-500 text-sm"><i class="fas fa-users mr-1"></i> Grade 10</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-2">Lesson Plan: Quadratic function and its graph</h3>
+                        <p class="text-brand-700 font-medium mb-6">Pedagogical Professional Practising - HCMUE</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                                <h4 class="font-bold text-gray-800 mb-3 border-b pb-2"><i class="fas fa-bullseye text-brand-500 mr-2"></i>Key Objectives</h4>
+                                <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
+                                    <li>Recognize the definition of quadratic function.</li>
+                                    <li>Investigate basic properties of Parabola (vertex, axis of symmetry).</li>
+                                    <li>Construct steps to sketch the graph of Parabola.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                                <h4 class="font-bold text-gray-800 mb-3 border-b pb-2"><i class="fas fa-language text-brand-500 mr-2"></i>Language Competence</h4>
+                                <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
+                                    <li>Obtain insight with math terminology (vertex, concave up/down).</li>
+                                    <li>Use English in most instructional and collaborative situations.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Embedded Video -->
+                        <div class="mt-8">
+                            <h4 class="font-bold text-gray-900 mb-4 flex items-center">
+                                <i class="fab fa-youtube text-red-500 text-xl mr-2"></i> Demo Teaching Video
+                            </h4>
+                            <div class="bg-white p-2 rounded-xl border border-gray-200 shadow-sm">
+                                <div class="video-container">
+                                    <iframe src="https://www.youtube.com/embed/fg688EhiFGM" title="Teaching Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <p class="text-center text-xs text-gray-500 mt-3 pb-1">Đoạn video minh họa phong cách giảng dạy và kỹ năng sử dụng tiếng Anh trong lớp học Toán.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content 2: Hàm số bậc hai -->
+                    <div id="plan-math1" class="tab-content hidden animate-fade-in-up">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">Lớp 10</span>
+                            <span class="text-gray-500 text-sm"><i class="far fa-clock mr-1"></i> 1 tiết</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-2">Hàm số bậc hai</h3>
+                        <p class="text-brand-700 font-medium mb-6">THPT Marie Curie - Tổ Toán</p>
+
+                        <div class="space-y-6">
+                            <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                                <h4 class="font-bold text-gray-800 mb-3 border-b pb-2">Mục tiêu bài dạy</h4>
+                                <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
+                                    <li>Thiết lập được bảng giá trị của hàm số bậc hai.</li>
+                                    <li>Vẽ được Parabola (parabol) là đồ thị hàm số bậc hai.</li>
+                                    <li>Nhận biết được các tính chất cơ bản của Parabola như đỉnh, trục đối xứng.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                                <h4 class="font-bold text-gray-800 mb-3 border-b pb-2">Phương pháp & Tiến trình</h4>
+                                <p class="text-sm text-gray-600 mb-2">Sử dụng phần mềm <strong>Geogebra</strong> để minh họa trực quan sự thay đổi của đồ thị khi thay đổi các hệ số a, b, c.</p>
+                                <ul class="text-sm text-gray-600 space-y-1 list-decimal pl-4">
+                                    <li>Hoạt động 1 (15p): Hình thành định nghĩa hàm số bậc hai.</li>
+                                    <li>Hoạt động 2 (30p): Khám phá tính chất đồ thị (có liên hệ thực tế: Cầu Phật Tích, Cổng ĐH Bách Khoa).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content 3: Xác suất -->
+                    <div id="plan-math2" class="tab-content hidden animate-fade-in-up">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">Lớp 10</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full border border-purple-200">Hợp giảng</span>
+                            <span class="text-gray-500 text-sm"><i class="far fa-clock mr-1"></i> 2 tiết</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-2">Xác suất của biến cố</h3>
+                        <p class="text-brand-700 font-medium mb-6">TH-THCS PennSchool</p>
+
+                        <div class="space-y-6">
+                            <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                                <h4 class="font-bold text-gray-800 mb-3 border-b pb-2">Điểm nhấn Thiết kế</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    Bài giảng được thiết kế mở đầu bằng trò chơi <strong>"Xúc Xắc Không Lắc"</strong> (mô phỏng trên máy tính). Học sinh dự đoán tổng số chấm và chọn phe để tăng cơ hội thắng, qua đó hình thành nhu cầu tìm hiểu khái niệm "Xác suất" một cách tự nhiên và thú vị.
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Kiến thức</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1 list-disc pl-4">
+                                        <li>Định nghĩa cổ điển của xác suất.</li>
+                                        <li>Biến cố đối & Nguyên lí xác suất bé.</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Năng lực</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1 list-disc pl-4">
+                                        <li>Tính xác suất bằng phương pháp tổ hợp và sơ đồ hình cây.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content 4: Hoán vị -->
+                    <div id="plan-math3" class="tab-content hidden animate-fade-in-up">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">Lớp 10</span>
+                            <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full border border-green-200">Tiết luyện tập</span>
+                            <span class="text-gray-500 text-sm"><i class="far fa-clock mr-1"></i> 40 phút</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-2">Hoán vị, Chỉnh hợp và Tổ hợp</h3>
+                        <p class="text-brand-700 font-medium mb-6">TH-THCS PennSchool</p>
+
+                        <div class="space-y-6">
+                            <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                                <h4 class="font-bold text-gray-800 mb-3 border-b pb-2">Cấu trúc Luyện tập đa dạng</h4>
+                                <p class="text-sm text-gray-600 mb-3">Tổ chức luyện tập hệ thống qua 3 phần, giúp học sinh vững lý thuyết và nhạy bén trong thực hành:</p>
+                                <ul class="text-sm text-gray-600 space-y-2">
+                                    <li><i class="fas fa-check-circle text-green-500 mr-2"></i> <strong>Phần 1:</strong> Trắc nghiệm nhiều phương án lựa chọn (Củng cố công thức, bài toán cơ bản).</li>
+                                    <li><i class="fas fa-tasks text-blue-500 mr-2"></i> <strong>Phần 2:</strong> Trắc nghiệm đúng/sai (Phân tích lỗi sai thường gặp khi phân biệt hoán vị/chỉnh hợp/tổ hợp).</li>
+                                    <li><i class="fas fa-pen-alt text-amber-500 mr-2"></i> <strong>Phần 3:</strong> Câu hỏi trả lời ngắn (Giải quyết bài toán phân chia trường hợp phức tạp).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAMING_CHUNK:Building the Contact and Footer Section -->
+    <section id="contact" class="py-20 bg-brand-900 text-white relative">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-700 rounded-full mix-blend-screen filter blur-3xl opacity-30"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-3xl opacity-20"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl font-serif font-bold mb-4">Kết nối với tôi</h2>
+                <p class="text-brand-100 max-w-xl mx-auto">Sẵn sàng đón nhận các cơ hội giảng dạy và đóng góp vào môi trường giáo dục chuyên nghiệp.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 hover:bg-white/20 transition reveal">
+                    <div class="w-12 h-12 bg-white text-brand-900 rounded-full flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h4 class="font-bold mb-1">Điện thoại</h4>
+                    <p class="text-brand-100">0943 631 226</p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 hover:bg-white/20 transition reveal" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-white text-brand-900 rounded-full flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4 class="font-bold mb-1">Email</h4>
+                    <p class="text-brand-100">trantiensi0410@gmail.com</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 hover:bg-white/20 transition reveal" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 bg-white text-brand-900 rounded-full flex items-center justify-center text-xl mx-auto mb-4 cursor-pointer" onclick="showZaloModal()">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h4 class="font-bold mb-1">Zalo</h4>
+                    <button onclick="showZaloModal()" class="text-brand-100 hover:text-white underline text-sm">Xem mã QR Zalo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-sm border-t border-slate-800">
+        <p>© 2026 Trần Tiến Sĩ. Được thiết kế chuyên nghiệp dựa trên CV gốc.</p>
+    </footer>
+
+    <!-- STREAMING_CHUNK:Adding Modals and JavaScript functionality -->
+    <!-- Zalo Modal Overlay -->
+    <div id="zalo-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 relative transform scale-95 transition-transform duration-300" id="zalo-content">
+            <button onclick="closeZaloModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 focus:outline-none">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-4 shadow-lg">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-1">Trần Tiến Sĩ</h3>
+                <p class="text-sm text-gray-500 mb-6">Quét mã QR để kết nối qua Zalo</p>
+                <div class="bg-gray-100 p-4 rounded-xl inline-block mb-4">
+                    <!-- Placeholder for Zalo QR -> User can mentally map this to the provided image -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0943631226" alt="Zalo QR Code Placeholder" class="w-40 h-40 object-contain mx-auto mix-blend-multiply">
+                </div>
+                <p class="text-xs text-gray-400">SĐT: 0943631226</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching logic for Portfolio
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+            });
+            // Show selected content
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById(tabId).classList.add('block');
+
+            // Reset button styles
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('active', 'bg-brand-700', 'text-white', 'border-brand-700');
+                el.classList.add('bg-white', 'text-gray-700');
+            });
+            
+            // Set active button style
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('bg-white', 'text-gray-700');
+            activeBtn.style.backgroundColor = '#0369a1';
+            activeBtn.style.color = 'white';
+            activeBtn.style.borderColor = '#0369a1';
+        }
+
+        // Initially style the active button
+        document.getElementById('btn-plan-english').style.backgroundColor = '#0369a1';
+        document.getElementById('btn-plan-english').style.color = 'white';
+
+        // Scroll Animation Logic (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Run once
+                }
+            });
+        };
+
+        const revealObserver = new IntersectionObserver(revealCallback, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Navbar blur effect on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('shadow-sm');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Zalo Modal Logic
+        const modal = document.getElementById('zalo-modal');
+        const modalContent = document.getElementById('zalo-content');
+
+        function showZaloModal() {
+            modal.classList.remove('hidden');
+            // Small delay to allow display:block to apply before animating opacity
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeZaloModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Wait for transition to finish
+        }
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeZaloModal();
+            }
+        });
+    </script>
+</body>
+</html>
+```eof
